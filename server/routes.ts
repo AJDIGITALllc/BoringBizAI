@@ -44,7 +44,7 @@ function extractStepLockKeywords(text: string) {
 
   // Remove duplicates
   for (const category of Object.keys(keywords)) {
-    keywords[category as keyof typeof keywords] = [...new Set(keywords[category as keyof typeof keywords])];
+    keywords[category as keyof typeof keywords] = Array.from(new Set(keywords[category as keyof typeof keywords]));
   }
 
   return keywords;

@@ -48,8 +48,18 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const now = new Date();
     const audit: Audit = {
-      ...insertAudit,
       id,
+      url: insertAudit.url,
+      title: insertAudit.title ?? null,
+      description: insertAudit.description ?? null,
+      h1: insertAudit.h1 ?? null,
+      wordCount: insertAudit.wordCount ?? null,
+      imagesCount: insertAudit.imagesCount ?? null,
+      scriptsCount: insertAudit.scriptsCount ?? null,
+      linksCount: insertAudit.linksCount ?? null,
+      hasWebp: insertAudit.hasWebp ?? null,
+      links: insertAudit.links ? [...insertAudit.links] : null,
+      stepLockKeywords: insertAudit.stepLockKeywords ? { ...insertAudit.stepLockKeywords } : null,
       createdAt: now,
       updatedAt: now,
     };
@@ -76,8 +86,12 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const now = new Date();
     const competitor: Competitor = {
-      ...insertCompetitor,
       id,
+      name: insertCompetitor.name,
+      url: insertCompetitor.url,
+      industry: insertCompetitor.industry ?? null,
+      score: insertCompetitor.score ?? null,
+      lastAnalyzed: insertCompetitor.lastAnalyzed ?? null,
       createdAt: now,
     };
     this.competitors.set(id, competitor);

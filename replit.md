@@ -2,6 +2,21 @@
 
 BoringBiz.ai is a competitive intelligence and lead generation platform for service-based businesses. The application analyzes competitor websites to extract SEO insights, identify "StepLock" keywords (emergency, service, local, and problem-related terms), and generate actionable intelligence for businesses looking to compete in local service markets. The platform provides a dashboard interface for URL auditing, competitor tracking, and lead flow analysis.
 
+## Recent Changes (August 14, 2025)
+
+### Firebase Integration Setup
+- Added Firebase project structure with Cloud Functions support
+- Created Firebase configuration for project ID: boringbizaiv2
+- Set up Firestore rules and Storage rules for demo/development access
+- Created Firebase Functions with StepLock analysis and third-party integrations (Notion/Airtable)
+- Configured GitHub Actions CI pipeline for automated builds and deployments
+
+### Architecture Updates
+- Maintained React/Express hybrid architecture alongside Firebase Functions setup
+- Fixed TypeScript compatibility issues in storage layer and navigation components
+- Enhanced error handling in URL audit functionality
+- Updated sidebar navigation to use proper Link components without nested anchor tags
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

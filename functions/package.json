@@ -1,0 +1,27 @@
+{
+  "name": "boringbiz-functions",
+  "engines": { "node": "20" },
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "deploy": "npm run build && firebase deploy --only functions"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "firebase-admin": "^12.5.0",
+    "firebase-functions": "^6.0.0",
+    "metascraper": "^5.44.7",
+    "metascraper-title": "^5.44.7",
+    "metascraper-description": "^5.44.7",
+    "metascraper-url": "^5.44.7",
+    "@notionhq/client": "^2.2.14",
+    "airtable": "^0.12.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
