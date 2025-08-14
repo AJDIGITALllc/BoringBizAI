@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(47 8.5% 18.4%);
+  --card: hsl(249 12% 98%);
+  --card-foreground: hsl(47 8.5% 18.4%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(47 8.5% 18.4%);
+  --primary: hsl(159 61% 47.8%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(47 8.5% 18.4%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(210 18.2% 94.5%);
+  --muted-foreground: hsl(47 8.5% 18.4%);
+  --accent: hsl(12 76.9% 66.1%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(356.3 90.6% 54.3%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(210 18.2% 87.1%);
+  --input: hsl(210 18.2% 96.1%);
+  --ring: hsl(159 61% 47.8%);
+  --chart-1: hsl(159 61% 47.8%);
+  --chart-2: hsl(12 76.9% 66.1%);
+  --chart-3: hsl(45 90% 60%);
+  --chart-4: hsl(47 8.5% 18.4%);
+  --chart-5: hsl(249 12% 91%);
+  --highlight: hsl(45 90% 60%);
+  --ink: hsl(47 8.5% 18.4%);
+  --paper: hsl(249 12% 98%);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(0 0% 0%);
+  --foreground: hsl(210 18.2% 91.2%);
+  --card: hsl(228 9.8% 10%);
+  --card-foreground: hsl(0 0% 85.1%);
+  --popover: hsl(0 0% 0%);
+  --popover-foreground: hsl(210 18.2% 91.2%);
+  --primary: hsl(159 61% 47.8%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(195 15.4% 94.9%);
+  --secondary-foreground: hsl(47 8.5% 18.4%);
+  --muted: hsl(0 0% 9.4%);
+  --muted-foreground: hsl(210 3.4% 46.3%);
+  --accent: hsl(12 76.9% 66.1%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(356.3 90.6% 54.3%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(210 5.3% 14.9%);
+  --input: hsl(207.7 27.7% 18.4%);
+  --ring: hsl(159 61% 47.8%);
+  --chart-1: hsl(159 61% 47.8%);
+  --chart-2: hsl(12 76.9% 66.1%);
+  --chart-3: hsl(45 90% 60%);
+  --chart-4: hsl(47 8.5% 18.4%);
+  --chart-5: hsl(249 12% 91%);
+  --highlight: hsl(45 90% 60%);
+  --ink: hsl(210 18.2% 91.2%);
+  --paper: hsl(228 9.8% 10%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-paper text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  .brand-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+  
+  .brand-accent {
+    @apply bg-accent text-accent-foreground;
+  }
+  
+  .brand-highlight {
+    @apply bg-highlight text-foreground;
+  }
+  
+  .brand-ink {
+    @apply bg-ink text-white;
+  }
+  
+  .brand-paper {
+    @apply bg-paper text-foreground;
+  }
+}
