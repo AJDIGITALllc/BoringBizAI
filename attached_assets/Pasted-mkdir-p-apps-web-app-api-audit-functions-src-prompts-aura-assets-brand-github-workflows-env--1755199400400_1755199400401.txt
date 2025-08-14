@@ -1,0 +1,87 @@
+mkdir -p apps/web/app/api/audit functions/src prompts/aura assets/brand .github/workflows env
+
+# .replit (single run cmd)
+cat > .replit << 'EOF'
+run = "cd apps/web && npm run dev -- --port 3000"
+hidden = [".git", "node_modules", "functions/node_modules", "apps/web/.next"]
+EOF
+
+# replit.nix (Node 20)
+cat > replit.nix << 'EOF'
+{ pkgs }: {
+  deps = [ pkgs.nodejs-20_x pkgs.python3 ];
+}
+EOF
+
+# Root package.json scripts
+jq '.scripts += {"dev":"npm -w apps/web run dev","build":"npm -w functions run build && npm -w apps/web run build","lint":"eslint .","typecheck":"tsc -b"}' package.json > package.tmp || true
+[ -f package.tmp ] && mv package.tmp package.json
+
+# Web env example
+cat > apps/web/.env.local.example << 'EOF'
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+EOF
+
+# Firebase config
+cat > firebase.json << 'EOF'
+{
+  "functions": { "source": "functions" },
+  "hosting": { "public": "apps/web/out", "ignore": ["**/.*","**/node_modules/**"] }
+}
+EOF
+
+# Functions boilerplate (audit + StepLock stubs)
+cat > functions/src/index.ts << 'EOF'
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+admin.initializeApp();
+export const ping = functions.region("us-central1")
+  .https.onRequest((_req, res) => res.json({ok:true, t:Date.now()}));
+EOF
+
+cat > functions/package.json << 'EOF'
+{
+  "name": "functions",
+  "engines": { "node": "20" },
+  "type": "module",
+  "main": "lib/index.js",
+  "scripts": { "build":"tsc -p tsconfig.json" },
+  "dependencies": { "firebase-admin":"^12.5.0", "firebase-functions":"^6.0.0" },
+  "devDependencies": { "typescript":"^5.5.0" }
+}
+EOF
+
+cat > functions/tsconfig.json << 'EOF'
+{ "compilerOptions": { "module":"esnext","target":"es2020","outDir":"lib","moduleResolution":"bundler","esModuleInterop":true,"resolveJsonModule":true,"strict":true }, "include":["src"] }
+EOF
+
+# Web minimal page + analytics safe init
+mkdir -p apps/web/app
+cat > apps/web/app/layout.tsx << 'EOF'
+export default function RootLayout({children}:{children:React.ReactNode}) {
+  return <html><body>{children}</body></html>;
+}
+EOF
+cat > apps/web/app/page.tsx << 'EOF'
+"use client";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAnalytics, isSupported, logEvent } from "firebase/analytics";
+const config = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+};
+const app = getApps().length ? getApp() : initializeApp(config);
+if (typeof window !== "undefined") isSupported().then(ok=>ok && logEvent(getAnalytics(app),"bbz_web_boot"));
+export default function Page(){ return (<main style={{padding:24}}><h1>BoringBiz.ai</h1><p>Firebase wired.</p></main>); }
+EOF
