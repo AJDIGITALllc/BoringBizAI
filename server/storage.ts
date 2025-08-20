@@ -59,7 +59,12 @@ export class MemStorage implements IStorage {
       linksCount: insertAudit.linksCount ?? null,
       hasWebp: insertAudit.hasWebp ?? null,
       links: insertAudit.links ? [...insertAudit.links] : null,
-      stepLockKeywords: insertAudit.stepLockKeywords ? { ...insertAudit.stepLockKeywords } : null,
+      stepLockKeywords: insertAudit.stepLockKeywords ? {
+        emergency: [...insertAudit.stepLockKeywords.emergency],
+        service: [...insertAudit.stepLockKeywords.service],
+        local: [...insertAudit.stepLockKeywords.local],
+        problem: [...insertAudit.stepLockKeywords.problem]
+      } : null,
       createdAt: now,
       updatedAt: now,
     };

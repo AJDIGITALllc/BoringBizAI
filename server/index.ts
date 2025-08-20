@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+app.set("env", (process.env.NODE_ENV || "development").trim());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -63,8 +64,8 @@ app.use((req, res, next) => {
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen({
     port,
-    host: "0.0.0.0",
-    reusePort: true,
+    host: "localhost",
+    reusePort: false,
   }, () => {
     log(`serving on port ${port}`);
   });
