@@ -153,16 +153,30 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="px-6 py-8 bg-brand-light border-t">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-6 h-6 bg-brand-primary rounded-md flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-xs">B</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-6">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <div className="w-6 h-6 bg-brand-primary rounded-md flex items-center justify-center">
+                <span className="text-white font-heading font-bold text-xs">B</span>
+              </div>
+              <span className="font-heading font-semibold text-brand-dark">BoringBiz.AI</span>
             </div>
-            <span className="font-heading font-semibold text-brand-dark">BoringBiz.AI</span>
+            <p className="brand-body text-brand-secondary text-sm">
+              Transform boring businesses into profitable opportunities.
+            </p>
           </div>
-          <p className="brand-body text-brand-secondary text-sm">
-            Transform boring businesses into profitable opportunities.
-          </p>
+          
+          <div className="flex justify-center items-center space-x-6 text-xs text-brand-secondary">
+            <Link href="/legal/privacy" className="hover:text-brand-primary">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link href="/legal/terms" className="hover:text-brand-primary">
+              Terms of Service
+            </Link>
+            <span>•</span>
+            <span>© 2024 BoringBiz.AI</span>
+          </div>
         </div>
       </footer>
     </div>

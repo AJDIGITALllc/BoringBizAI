@@ -9,11 +9,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: BarChart3, current: true },
-  { name: "Lead Finder", href: "/leads", icon: Search, current: false },
-  { name: "Competitors", href: "/competitors", icon: Users, current: false },
-  { name: "Trends & Insights", href: "/trends", icon: TrendingUp, current: false },
-  { name: "Settings", href: "/settings", icon: Settings, current: false },
+  { name: "Overview", href: "/dashboard/overview", icon: BarChart3, current: true },
+  { name: "Lead Finder", href: "/dashboard/lead-finder", icon: Search, current: false },
+  { name: "Competitors", href: "/dashboard/competitors", icon: Users, current: false },
+  { name: "Trends", href: "/dashboard/trends", icon: TrendingUp, current: false },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings, current: false },
 ];
 
 export function Sidebar() {
@@ -35,7 +35,7 @@ export function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-4 py-6 space-y-2">
           {navigation.map((item) => {
-            const isActive = location === item.href || (item.href === "/" && location === "/dashboard");
+            const isActive = location === item.href || location.startsWith(item.href);
             return (
               <Link key={item.name} href={item.href} className={cn(
                 "group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200",
