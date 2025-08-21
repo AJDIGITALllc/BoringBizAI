@@ -11,6 +11,16 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        // BoringBiz.AI Brand Colors
+        brand: {
+          primary: "#FFB74D",      // Warm gold - optimism + wealth
+          secondary: "#A1887F",    // Earthy brown - trust + stability  
+          accent: "#64B5F6",       // Soft cloud blue - modern + tech
+          success: "#66BB6A",      // Success green - boring = opportunity
+          dark: "#212121",         // Deep gray for text and icons
+          light: "#F5F5F5",        // Backgrounds / cards / modals
+        },
+        // Keep existing shadcn/ui color system
         background: "var(--background)",
         foreground: "var(--foreground)",
         card: {
@@ -56,7 +66,12 @@ export default {
         paper: "var(--paper)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        // BoringBiz.AI Brand Fonts
+        'heading': ['Poppins', 'system-ui', 'sans-serif'], // Bold, playful for titles
+        'body': ['Inter', 'system-ui', 'sans-serif'],       // Clean, readable for body text
+        'ui': ['Nunito Sans', 'system-ui', 'sans-serif'],   // Alternative for UI elements
+        'accent': ['Fredoka', 'cursive'],                   // Fun font for microcopy/easter eggs
+        'sans': ['Inter', 'system-ui', 'sans-serif'],       // Default fallback
       },
       keyframes: {
         "accordion-down": {

@@ -69,28 +69,101 @@
   }
 
   body {
-    @apply bg-paper text-foreground font-sans antialiased;
+    @apply bg-paper text-foreground font-body antialiased;
   }
+  
+  /* BoringBiz.AI Typography System */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  
+  .text-brand-primary { color: #FFB74D; }
+  .text-brand-secondary { color: #A1887F; }
+  .text-brand-accent { color: #64B5F6; }
+  .text-brand-success { color: #66BB6A; }
+  .text-brand-dark { color: #212121; }
+  .text-brand-light { color: #F5F5F5; }
+  
+  .bg-brand-primary { background-color: #FFB74D; }
+  .bg-brand-secondary { background-color: #A1887F; }
+  .bg-brand-accent { background-color: #64B5F6; }
+  .bg-brand-success { background-color: #66BB6A; }
+  .bg-brand-dark { background-color: #212121; }
+  .bg-brand-light { background-color: #F5F5F5; }
 }
 
 @layer components {
-  .brand-primary {
-    @apply bg-primary text-primary-foreground;
+  /* BoringBiz.AI Component Classes */
+  .brand-btn-primary {
+    @apply bg-brand-primary hover:bg-opacity-90 text-white font-heading font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
   }
   
-  .brand-accent {
-    @apply bg-accent text-accent-foreground;
+  .brand-btn-secondary {
+    @apply bg-brand-secondary hover:bg-opacity-90 text-white font-heading font-semibold px-6 py-3 rounded-lg transition-all duration-200;
   }
   
-  .brand-highlight {
-    @apply bg-highlight text-foreground;
+  .brand-btn-accent {
+    @apply bg-brand-accent hover:bg-opacity-90 text-white font-heading font-semibold px-6 py-3 rounded-lg transition-all duration-200;
   }
   
-  .brand-ink {
-    @apply bg-ink text-white;
+  .brand-card {
+    @apply bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
   }
   
-  .brand-paper {
-    @apply bg-paper text-foreground;
+  .brand-heading {
+    @apply font-heading font-bold text-brand-dark;
+  }
+  
+  .brand-subheading {
+    @apply font-heading font-semibold text-brand-secondary;
+  }
+  
+  .brand-body {
+    @apply font-body text-brand-dark;
+  }
+  
+  .brand-accent-text {
+    @apply font-accent text-brand-primary;
+  }
+  
+  /* Success state for "boring = opportunity" moments */
+  .brand-success-highlight {
+    @apply bg-brand-success bg-opacity-10 border border-brand-success text-brand-success px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  /* ZZZ Floating Animation - "Boring = Opportunity" Celebration */
+  .zzz {
+    animation: floatZ 3s ease-in-out infinite;
+    display: inline-block;
+    font-size: 1.5rem;
+  }
+  
+  .zzz-large {
+    animation: floatZ 3.5s ease-in-out infinite;
+    display: inline-block;
+    font-size: 2rem;
+  }
+  
+  .zzz-small {
+    animation: floatZ 2.5s ease-in-out infinite;
+    display: inline-block;
+    font-size: 1rem;
+  }
+  
+  /* Multiple Z's with staggered delays */
+  .zzz:nth-child(1) { animation-delay: 0s; }
+  .zzz:nth-child(2) { animation-delay: 0.5s; }
+  .zzz:nth-child(3) { animation-delay: 1s; }
+  .zzz:nth-child(4) { animation-delay: 1.5s; }
+}
+
+@keyframes floatZ {
+  0% { 
+    transform: translateY(0) scale(1); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(-50px) scale(1.2); 
+    opacity: 0; 
   }
 }

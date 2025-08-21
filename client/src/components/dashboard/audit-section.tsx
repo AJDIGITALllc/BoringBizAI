@@ -5,6 +5,7 @@ import { Search, Download, HelpCircle } from "lucide-react";
 import { useAuditMutation } from "@/hooks/use-audit";
 import { useToast } from "@/hooks/use-toast";
 import { StepLockAnalysis } from "./steplock-analysis";
+import { BoringOpportunityAlert, LoadingWithZzz } from "@/components/ui/zzz-animation";
 import type { AuditResult } from "@/types/audit";
 
 export function AuditSection() {
@@ -13,6 +14,35 @@ export function AuditSection() {
   const { toast } = useToast();
   
   const auditMutation = useAuditMutation();
+
+  // Calculate opportunity score based on "boring-ness" indicators
+  const calculateOpportunityScore = (result: AuditResult): number => {
+    let score = 0;
+    
+    // Low word count = more boring = higher opportunity
+    if (result.wordCount < 500) score += 25;
+    else if (result.wordCount < 1000) score += 15;
+    else if (result.wordCount < 2000) score += 5;
+    
+    // Few images = more boring = higher opportunity
+    if (result.imagesCount < 5) score += 20;
+    else if (result.imagesCount < 10) score += 10;
+    
+    // Limited links = less interactive = more boring
+    if (result.linksCount < 20) score += 15;
+    else if (result.linksCount < 50) score += 10;
+    
+    // StepLock keywords indicate competitive opportunity
+    const totalKeywords = Object.values(result.stepLockKeywords).flat().length;
+    if (totalKeywords > 10) score += 25;
+    else if (totalKeywords > 5) score += 15;
+    else if (totalKeywords > 0) score += 10;
+    
+    // Old-school tech = more boring = higher opportunity
+    if (!result.hasWebp) score += 15; // No modern image formats
+    
+    return Math.min(100, Math.max(0, score));
+  };
 
   const handleAnalyze = async () => {
     if (!url) {
@@ -82,15 +112,29 @@ export function AuditSection() {
           <Button 
             onClick={handleAnalyze}
             disabled={auditMutation.isPending}
-            className="bg-gradient-to-r from-primary to-emerald-600 hover:from-primary/90 hover:to-emerald-600/90 text-white font-semibold"
+            className="brand-btn-primary"
           >
             <Search className="w-4 h-4 mr-2" />
             {auditMutation.isPending ? "Analyzing..." : "Analyze URL"}
           </Button>
         </div>
 
+        {/* Loading State with ZZZ Animation */}
+        {auditMutation.isPending && (
+          <LoadingWithZzz 
+            message="Analyzing boring-ness levels... Looking for opportunities 🔍"
+            className="my-8"
+          />
+        )}
+
         {auditResult && (
           <div className="space-y-6">
+            {/* Opportunity Score Alert with ZZZ Animation */}
+            <BoringOpportunityAlert 
+              score={calculateOpportunityScore(auditResult)}
+              threshold={70}
+              className="mb-6"
+            />
             {/* Basic Info Card */}
             <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
               <div className="flex items-start justify-between">
